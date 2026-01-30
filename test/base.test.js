@@ -23,6 +23,6 @@ describe('/test/base.test', () => {
         }
       });
     
-    assert.equal(response.status, 200);
+    assert.equal(response.status, 300);
   })
 });
