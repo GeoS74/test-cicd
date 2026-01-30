@@ -10,17 +10,19 @@ jobs:
     
     steps:
     # 1. Забрать код
-    - name: 📥 Checkout code
+    - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        ref: main
     
     # 2. Настроить SSH
-    - name: 🔑 Setup SSH
+    - name: Setup SSH
       uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     
     # 3. Деплой на VPS
-    - name: 🚀 Deploy to VPS
+    - name: Deploy to VPS
       run: |
         ssh -o StrictHostKeyChecking=no deployer@${{ secrets.VPS_HOST }} "
           cd ~/app &&
