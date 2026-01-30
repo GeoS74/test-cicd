@@ -25,9 +25,14 @@ jobs:
     - name: Deploy to VPS
       run: |
         ssh -o StrictHostKeyChecking=no deployer@${{ secrets.VPS_HOST }} "
-          rm -rf ~/app
-          git clone https://github.com/GeoS74/test-cicd.git ~/app
-          cd ~/app &&
+          # Создаём папку, если её нет
+          mkdir -p ~/app
+          cd ~/app
+
+          # Если это не git-репозиторий — клонируем
+          if [ ! -d .git ]; then
+            git clone https://github.com/GeoS74/test-cicd.git .
+          fi
           git pull origin main &&
           docker build -t app:0.0.1 . &&
           docker stop myapp-container || true &&
