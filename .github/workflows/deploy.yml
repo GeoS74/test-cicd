@@ -25,6 +25,8 @@ jobs:
     - name: Deploy to VPS
       run: |
         ssh -o StrictHostKeyChecking=no deployer@${{ secrets.VPS_HOST }} "
+          rm -rf ~/app
+          git clone https://github.com/ТВОЙ_АККАУНТ/ТВОЙ_РЕПОЗИТОРИЙ.git ~/app
           cd ~/app &&
           git pull origin main &&
           docker build -t app:0.0.1 . &&
